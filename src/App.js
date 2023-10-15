@@ -22,24 +22,6 @@ const App = () => {
     return <ViewInvoiceList />;
   }
 
-  if (invoiceList.length === 0) {
-    return (
-      <div className="App d-flex flex-column align-items-center justify-content-center w-100">
-        <Container>
-          <h1>No Invoice is Found</h1>
-
-          <Button
-            variant="primary"
-            size="xl"
-            onClick={() => dispatch(addInvoice())}
-          >
-            Create Invoice
-          </Button>
-        </Container>
-      </div>
-    );
-  }
-
   return (
     <div className="App d-flex flex-column align-items-center justify-content-center w-100">
       <Container>

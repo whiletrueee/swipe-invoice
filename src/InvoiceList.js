@@ -136,6 +136,7 @@ const InvoiceList = () => {
               </Card>
             );
           })}
+
         {!invoiceList && (
           <div className="">
             <h1>No invoices found</h1>
