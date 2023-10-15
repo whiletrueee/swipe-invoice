@@ -1,69 +1,69 @@
+import { createSlice } from "@reduxjs/toolkit";
 import { invoiceDataState } from "../initialState";
 
-export default function updateInvoiceReducer(state = invoiceDataState, action) {
-  switch (action.type) {
-    case "UPDATE_FIELD":
-      return { ...state, [action.payload.name]: action.payload.value };
-
-    case "ADD_ITEM":
-      // Assuming a simple item is added for demonstration
-      let id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36);
-      return {
-        ...state,
-        productItems: [
-          ...state.productItems,
-          {
-            id: id,
-            name: "",
-            price: "1.00",
-            description: "",
-            quantity: 1,
-          },
-        ],
-      };
-
-    case "DELETE_ITEM":
-      return {
-        ...state,
-        items: state.items.filter((item) => item.id !== action.payload.id),
-      };
-
-    case "EDIT_ITEM":
-      return {
-        ...state,
-        items: state.items.map((item) =>
-          item.id === action.payload.id
-            ? { ...item, [action.payload.name]: action.payload.value }
-            : item
-        ),
-      };
-
-    case "CALCULATE_TOTAL":
-      let subTotal = 0;
-      state.productItems.map((items) => {
-        subTotal = parseFloat(
-          subTotal +
-            parseFloat(items.price).toFixed(2) * parseInt(items.quantity)
-        ).toFixed(2);
+const invoiceSlice = createSlice({
+  name: "invoice",
+  initialState: invoiceDataState,
+  reducers: {
+    updateField: (state, action) => {
+      const { name, value } = action.payload;
+      state[name] = value;
+    },
+    addItem: (state) => {
+      const id = (+new Date() + Math.floor(Math.random() * 999999)).toString(
+        36
+      );
+      state.productItems.push({
+        id,
+        name: "",
+        price: "1.00",
+        description: "",
+        quantity: 1,
       });
+    },
+    deleteItem: (state, action) => {
+      const index = state.productItems.indexOf(action.payload.id);
+      state.productItems.splice(index, 1);
+    },
+    editItem: (state, action) => {
+      state.productItems = state.productItems.map((item) =>
+        item.id === action.payload.id
+          ? { ...item, [action.payload.name]: action.payload.value }
+          : item
+      );
+    },
+    calculateTotal: (state) => {
+      const subTotal = state.productItems
+        .reduce((total, item) => {
+          return total + parseFloat(item.price) * parseInt(item.quantity);
+        }, 0)
+        .toFixed(2);
+
+      const taxAmount = (parseFloat(subTotal) * (state.taxRate / 100)).toFixed(
+        2
+      );
+      const discountAmount = (
+        parseFloat(subTotal) *
+        (state.discountRate / 100)
+      ).toFixed(2);
+
+      const total = (
+        parseFloat(subTotal) -
+        discountAmount +
+        parseFloat(taxAmount)
+      ).toFixed(2);
 
       return {
         ...state,
-        subTotal: parseFloat(subTotal).toFixed(2),
-        total: parseFloat(
-          subTotal +
-            subTotal * (parseFloat(state.taxRate) / 100) -
-            subTotal * (parseFloat(state.discountRate) / 100)
-        ).toFixed(2),
-        taxAmmount: parseFloat(
-          subTotal * (parseFloat(state.taxRate) / 100)
-        ).toFixed(2),
-        discountAmmount: parseFloat(
-          subTotal * (parseFloat(state.discountRate) / 100)
-        ).toFixed(2),
+        subTotal,
+        taxAmount,
+        discountAmount,
+        total,
       };
+    },
+  },
+});
 
-    default:
-      return state;
-  }
-}
+export const { updateField, addItem, deleteItem, editItem, calculateTotal } =
+  invoiceSlice.actions;
+export default invoiceSlice.reducer;

@@ -1,12 +1,12 @@
 export const invoiceDataState = {
   productItems: [
-    {
-      id: 0,
-      name: "",
-      description: "",
-      price: "1.00",
-      quantity: 1,
-    },
+    // {
+    //   id: 0,
+    //   name: "",
+    //   description: "",
+    //   price: "1.00",
+    //   quantity: 1,
+    // },
   ],
   isOpen: false,
   currency: "$",
@@ -23,9 +23,9 @@ export const invoiceDataState = {
   total: "0.00",
   subTotal: "0.00",
   taxRate: "",
-  taxAmmount: "0.00",
+  taxAmount: "0.00",
   discountRate: "",
-  discountAmmount: "0.00",
+  discountAmount: "0.00",
 };
 
 export const listOfInvoices = [];

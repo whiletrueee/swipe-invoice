@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import updateInvoiceReducer from "./reducers/updateInvoice";
+import invoiceSlice from "./reducers/updateInvoice";
 
 const store = configureStore({
   reducer: {
-    updateForm: updateInvoiceReducer,
+    invoice: invoiceSlice,
   },
 });
 
