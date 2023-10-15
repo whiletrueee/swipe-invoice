@@ -5,11 +5,7 @@ import Button from "react-bootstrap/Button";
 import { BiTrash } from "react-icons/bi";
 import EditableField from "./EditableField";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  deleteItem,
-  addItem,
-  calculateTotal,
-} from "../redux/reducers/updateInvoice";
+import { deleteItem, addItem } from "../redux/reducers/updateInvoice";
 
 const InvoiceItem = () => {
   const dispatch = useDispatch();

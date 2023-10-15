@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -13,7 +12,6 @@ import { calculateTotal, updateField } from "../redux/reducers/updateInvoice";
 
 const InvoiceForm = () => {
   const {
-    isOpen,
     currency,
     currentDate,
     invoiceNumber,
@@ -31,7 +29,6 @@ const InvoiceForm = () => {
     taxAmount,
     discountRate,
     discountAmount,
-    productItems,
   } = useSelector((state) => state.invoice);
 
   const dispatch = useDispatch();
@@ -321,107 +318,3 @@ const InvoiceForm = () => {
 };
 
 export default InvoiceForm;
-
-// constructor(props) {
-//   super(props);
-//   this.state = {
-//     isOpen: false,
-//     currency: "$",
-//     currentDate: "",
-//     invoiceNumber: 1,
-//     dateOfIssue: "",
-//     billTo: "",
-//     billToEmail: "",
-//     billToAddress: "",
-//     billFrom: "",
-//     billFromEmail: "",
-//     billFromAddress: "",
-//     notes: "",
-//     total: "0.00",
-//     subTotal: "0.00",
-//     taxRate: "",
-//     taxAmount: "0.00",
-//     discountRate: "",
-//     discountAmount: "0.00",
-//   };
-//   items = [
-//     {
-//       id: 0,
-//       name: "",
-//       description: "",
-//       price: "1.00",
-//       quantity: 1,
-//     },
-//   ];
-//   this.editField = this.editField.bind(this);
-// }
-// componentDidMount(prevProps) {
-//   this.handleCalculateTotal();
-// }
-// handleRowDel(items) {
-//   var index = items.indexOf(items);
-//   items.splice(index, 1);
-//   this.setState(items);
-// }
-// handleAddEvent() {
-//   this.props.addItem();
-// }
-// handleCalculateTotal() {
-//   this.props.calculateTotal();
-// }
-// onItemizedItemEdit(evt) {
-//   var item = {
-//     id: evt.target.id,
-//     name: evt.target.name,
-//     value: evt.target.value,
-//   };
-//   var items = items.slice();
-//   var newItems = items.map(function (items) {
-//     for (var key in items) {
-//       if (key == item.name && items.id == item.id) {
-//         items[key] = item.value;
-//       }
-//     }
-//     return items;
-//   });
-//   this.setState({ items: newItems });
-//   this.handleCalculateTotal();
-// }
-// editField = (event) => {
-//   const { name, value } = event.target;
-//   this.props.updateField(name, value);
-//   this.handleCalculateTotal();
-// };
-// onCurrencyChange = (selectedOption) => {
-//   this.setState(selectedOption);
-// };
-// openModal = (event) => {
-//   event.preventDefault();
-//   this.handleCalculateTotal();
-//   this.setState({ isOpen: true });
-// };
-// closeModal = (event) => this.setState({ isOpen: false });
-
-// handleCalculateTotal() {
-//   var items = this.state.items;
-//   var subTotal = 0;
-
-//   items.map(function(items) {
-//     subTotal = parseFloat(subTotal + (parseFloat(items.price).toFixed(2) * parseInt(items.quantity))).toFixed(2)
-//   });
-
-//   this.setState({
-//     subTotal: parseFloat(subTotal).toFixed(2)
-//   }, () => {
-//     this.setState({
-//       taxAmount: parseFloat(parseFloat(subTotal) * (this.state.taxRate / 100)).toFixed(2)
-//     }, () => {
-//       this.setState({
-//         discountAmount: parseFloat(parseFloat(subTotal) * (this.state.discountRate / 100)).toFixed(2)
-//       }, () => {
-//         this.setState({
-//           total: ((subTotal - this.state.discountAmount) + parseFloat(this.state.taxAmount))
-//         });
-//       });
-//     });
-//   });
