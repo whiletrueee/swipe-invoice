@@ -3,9 +3,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useDispatch } from "react-redux";
-import { editItem, calculateTotal } from "../redux/reducers/updateInvoice";
+import { editItem, calculateTotal } from "../redux/reducers/updateInvoiceList";
+import { useParams } from "react-router-dom";
 
 const EditableField = ({ cellData }) => {
+  const { invoiceNumber: invoiceId } = useParams();
   const dispatch = useDispatch();
   return (
     <InputGroup className="my-1 flex-nowrap">
@@ -36,9 +38,10 @@ const EditableField = ({ cellData }) => {
               id: cellData.id,
               name: e.target.name,
               value: e.target.value,
+              invoiceId: invoiceId - 1,
             })
           );
-          dispatch(calculateTotal());
+          dispatch(calculateTotal({invoiceId: invoiceId - 1}));
         }}
         required
       />

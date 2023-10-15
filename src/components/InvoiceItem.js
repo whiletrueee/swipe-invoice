@@ -5,11 +5,13 @@ import Button from "react-bootstrap/Button";
 import { BiTrash } from "react-icons/bi";
 import EditableField from "./EditableField";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteItem, addItem } from "../redux/reducers/updateInvoice";
+import { deleteItem, addItem } from "../redux/reducers/updateInvoiceList";
+import { useParams } from "react-router-dom";
 
 const InvoiceItem = () => {
+  const { invoiceNumber: invoiceId } = useParams();
   const dispatch = useDispatch();
-  const { productItems, currency } = useSelector((state) => state.invoice);
+  const { productItems, currency } = useSelector((state) => state.invoiceList[invoiceId - 1]);
   return (
     <div>
       <Table>
@@ -24,14 +26,21 @@ const InvoiceItem = () => {
         <tbody>
           {productItems.length !== 0 &&
             productItems.map((item) => {
-              return <ItemRow item={item} key={item.id} currency={currency} />;
+              return (
+                <ItemRow
+                  invoiceId={invoiceId}
+                  item={item}
+                  key={item.id}
+                  currency={currency}
+                />
+              );
             })}
         </tbody>
       </Table>
       <Button
         className="fw-bold"
         onClick={() => {
-          dispatch(addItem());
+          dispatch(addItem({invoiceId: invoiceId - 1}));
         }}
       >
         Add Item
@@ -40,7 +49,7 @@ const InvoiceItem = () => {
   );
 };
 
-const ItemRow = ({ item, currency }) => {
+const ItemRow = ({ item, currency, invoiceId }) => {
   const dispatch = useDispatch();
   return (
     <tr>
@@ -93,7 +102,9 @@ const ItemRow = ({ item, currency }) => {
       </td>
       <td className="text-center" style={{ minWidth: "50px" }}>
         <BiTrash
-          onClick={() => dispatch(deleteItem(item.id))}
+          onClick={() =>
+            dispatch(deleteItem({ id: item.id, invoiceId: invoiceId - 1 }))
+          }
           style={{ height: "33px", width: "33px", padding: "7.5px" }}
           className="text-white mt-1 btn btn-danger"
         />

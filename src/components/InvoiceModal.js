@@ -9,7 +9,8 @@ import { BiPaperPlane, BiCloudDownload } from "react-icons/bi";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useSelector, useDispatch } from "react-redux";
-import { updateField } from "../redux/reducers/updateInvoice";
+import { updateField } from "../redux/reducers/updateInvoiceList";
+import { useParams } from "react-router-dom";
 
 function GenerateInvoice() {
   html2canvas(document.querySelector("#invoiceCapture")).then((canvas) => {
@@ -28,7 +29,7 @@ function GenerateInvoice() {
   });
 }
 
-const InvoiceModal = () => {
+const InvoiceModal = ({ invoiceId }) => {
   const {
     isOpen,
     billFromAddress,
@@ -46,14 +47,20 @@ const InvoiceModal = () => {
     subTotal,
     taxAmount,
     discountAmount,
-  } = useSelector((state) => state.invoice);
+  } = useSelector((state) => state.invoiceList[invoiceId - 1]);
   const dispatch = useDispatch();
   return (
     <div>
       <Modal
         show={isOpen}
         onHide={() => {
-          dispatch(updateField({ name: "isOpen", value: false }));
+          dispatch(
+            updateField({
+              name: "isOpen",
+              value: false,
+              invoiceId: invoiceId - 1,
+            })
+          );
         }}
         size="lg"
         centered

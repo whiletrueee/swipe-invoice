@@ -8,9 +8,13 @@ import InvoiceItem from "./InvoiceItem";
 import InvoiceModal from "./InvoiceModal";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useSelector, useDispatch } from "react-redux";
-import { calculateTotal, updateField } from "../redux/reducers/updateInvoice";
+import { calculateTotal } from "../redux/reducers/updateInvoiceList";
+import { updateField } from "../redux/reducers/updateInvoiceList";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const InvoiceForm = () => {
+  const { invoiceNumber: invoiceId } = useParams();
   const {
     currency,
     invoiceNumber,
@@ -28,13 +32,15 @@ const InvoiceForm = () => {
     taxAmount,
     discountRate,
     discountAmount,
-  } = useSelector((state) => state.invoice);
+  } = useSelector((state) => state.invoiceList[invoiceId - 1]);
 
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(updateField({ name: "isOpen", value: true }));
+    dispatch(
+      updateField({ name: "isOpen", value: true, invoiceId: invoiceId - 1 })
+    );
   };
 
   return (
@@ -60,7 +66,9 @@ const InvoiceForm = () => {
                     name={"dateOfIssue"}
                     onChange={(event) => {
                       const { name, value } = event.target;
-                      dispatch(updateField({ name, value }));
+                      dispatch(
+                        updateField({ name, value, invoiceId: invoiceId - 1 })
+                      );
                     }}
                     style={{
                       maxWidth: "150px",
@@ -77,7 +85,9 @@ const InvoiceForm = () => {
                   name={"invoiceNumber"}
                   onChange={(event) => {
                     const { name, value } = event.target;
-                    dispatch(updateField({ name, value }));
+                    dispatch(
+                      updateField({ name, value, invoiceId: invoiceId - 1 })
+                    );
                   }}
                   min="1"
                   style={{
@@ -100,7 +110,9 @@ const InvoiceForm = () => {
                   className="my-2"
                   onChange={(event) => {
                     const { name, value } = event.target;
-                    dispatch(updateField({ name, value }));
+                    dispatch(
+                      updateField({ name, value, invoiceId: invoiceId - 1 })
+                    );
                   }}
                   autoComplete="name"
                   required="required"
@@ -113,7 +125,9 @@ const InvoiceForm = () => {
                   className="my-2"
                   onChange={(event) => {
                     const { name, value } = event.target;
-                    dispatch(updateField({ name, value }));
+                    dispatch(
+                      updateField({ name, value, invoiceId: invoiceId - 1 })
+                    );
                   }}
                   autoComplete="email"
                   required="required"
@@ -127,7 +141,9 @@ const InvoiceForm = () => {
                   autoComplete="address"
                   onChange={(event) => {
                     const { name, value } = event.target;
-                    dispatch(updateField({ name, value }));
+                    dispatch(
+                      updateField({ name, value, invoiceId: invoiceId - 1 })
+                    );
                   }}
                   required="required"
                 />
@@ -143,7 +159,9 @@ const InvoiceForm = () => {
                   className="my-2"
                   onChange={(event) => {
                     const { name, value } = event.target;
-                    dispatch(updateField({ name, value }));
+                    dispatch(
+                      updateField({ name, value, invoiceId: invoiceId - 1 })
+                    );
                   }}
                   autoComplete="name"
                   required="required"
@@ -156,7 +174,9 @@ const InvoiceForm = () => {
                   className="my-2"
                   onChange={(event) => {
                     const { name, value } = event.target;
-                    dispatch(updateField({ name, value }));
+                    dispatch(
+                      updateField({ name, value, invoiceId: invoiceId - 1 })
+                    );
                   }}
                   autoComplete="email"
                   required="required"
@@ -170,7 +190,9 @@ const InvoiceForm = () => {
                   autoComplete="address"
                   onChange={(event) => {
                     const { name, value } = event.target;
-                    dispatch(updateField({ name, value }));
+                    dispatch(
+                      updateField({ name, value, invoiceId: invoiceId - 1 })
+                    );
                   }}
                   required="required"
                 />
@@ -225,7 +247,9 @@ const InvoiceForm = () => {
               value={notes}
               onChange={(event) => {
                 const { name, value } = event.target;
-                dispatch(updateField({ name, value }));
+                dispatch(
+                  updateField({ name, value, invoiceId: invoiceId - 1 })
+                );
               }}
               as="textarea"
               className="my-2"
@@ -235,10 +259,28 @@ const InvoiceForm = () => {
         </Col>
         <Col md={4} lg={3}>
           <div className="sticky-top pt-md-3 pt-xl-4">
+            <Link
+              to="/"
+              style={{
+                textDecoration: "none",
+              }}
+            >
+              <Button
+                variant="outline-primary"
+                type="submit"
+                className="d-block w-100"
+                style={{
+                  marginBottom: "10px",
+                }}
+              >
+                All Invoice
+              </Button>
+            </Link>
+
             <Button variant="primary" type="submit" className="d-block w-100">
               Review Invoice
             </Button>
-            <InvoiceModal />
+            <InvoiceModal invoiceId={invoiceId} />
             <Form.Group className="mb-3">
               <Form.Label className="fw-bold">Currency:</Form.Label>
               <Form.Select
@@ -272,8 +314,10 @@ const InvoiceForm = () => {
                   value={taxRate}
                   onChange={(event) => {
                     const { name, value } = event.target;
-                    dispatch(updateField({ name, value }));
-                    dispatch(calculateTotal());
+                    dispatch(
+                      updateField({ name, value, invoiceId: invoiceId - 1 })
+                    );
+                    dispatch(calculateTotal({ invoiceId: invoiceId - 1 }));
                   }}
                   className="bg-white border"
                   placeholder="0.0"
@@ -295,8 +339,10 @@ const InvoiceForm = () => {
                   value={discountRate}
                   onChange={(event) => {
                     const { name, value } = event.target;
-                    dispatch(updateField({ name, value }));
-                    dispatch(calculateTotal());
+                    dispatch(
+                      updateField({ name, value, invoiceId: invoiceId - 1 })
+                    );
+                    dispatch(calculateTotal({ invoiceId: invoiceId - 1 }));
                   }}
                   className="bg-white border"
                   placeholder="0.0"
