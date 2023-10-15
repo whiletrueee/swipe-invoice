@@ -7,9 +7,12 @@ An Invoice creator project built with React. Add itemized items, configure quant
 https://guileless-medovik-d35c4b.netlify.app/
 
 ### Screenshots
-<img src="https://i.imgur.com/wRetnxk.png" style="max-width: 100px; width: 100%; height: auto;">
-<img src="https://i.imgur.com/AZChaei.png" style="max-width: 100px; width: 100%; height: auto;">
-<img src="https://i.imgur.com/Bz3K3DE.png" style="max-width: 100px; width: 100%; height: auto;">
+![Screenshot 2023-10-15 180830](https://github.com/whiletrueee/swipe-invoice/assets/73738347/05e02ecf-a672-4a54-891b-64452e87b23d)
+![Screenshot 2023-10-15 180859](https://github.com/whiletrueee/swipe-invoice/assets/73738347/f663d4b8-ed88-465d-a9ab-1e6c7b03df33)
+![Screenshot 2023-10-15 180925](https://github.com/whiletrueee/swipe-invoice/assets/73738347/e65014fc-d271-4315-bd1e-237100be3d3c)
+
+
+
 
 ### Installation
 
