@@ -10,12 +10,31 @@ import {
   duplicateInvoice,
 } from "./redux/reducers/updateInvoiceList";
 import { useState } from "react";
-import { updateField } from "./redux/reducers/updateInvoiceList";
+import { updateField, deleteInvoice } from "./redux/reducers/updateInvoiceList";
 
 const InvoiceList = () => {
   const { invoiceList } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [localInvoiceId, setLocalInvoiceId] = useState(1);
+
+  if (invoiceList.length === 0) {
+    return (
+      <div className="App d-flex flex-column align-items-center justify-content-center w-100">
+        <Container>
+          <h1>No Invoice is Found</h1>
+
+          <Button
+            variant="primary"
+            size="xl"
+            onClick={() => dispatch(addInvoice())}
+          >
+            Create Invoice
+          </Button>
+        </Container>
+      </div>
+    );
+  }
+
   return (
     <div className="App d-flex flex-column align-items-center justify-content-center w-100">
       <Container className="invoiceList-container">
@@ -53,8 +72,10 @@ const InvoiceList = () => {
                     {invoice.billFrom !== "" ? invoice.billFrom : "Untitled"}
                   </Card.Text>
                   <Card.Text>
-                    Due Date: {" "}
-                    {invoice.dateOfIssue !== "" ? invoice.dateOfIssue : "Untitled"}
+                    Due Date:{" "}
+                    {invoice.dateOfIssue !== ""
+                      ? invoice.dateOfIssue
+                      : "Untitled"}
                   </Card.Text>
                   <Card.Text>
                     {invoice.total !== "" ? (
@@ -97,13 +118,10 @@ const InvoiceList = () => {
                     <Button
                       onClick={() => {
                         dispatch(
-                          updateField({
-                            name: "isOpen",
-                            value: true,
-                            invoiceId: invoice.invoiceNumber - 1,
+                          deleteInvoice({
+                            index,
                           })
                         );
-                        setLocalInvoiceId(invoice.invoiceNumber);
                       }}
                       style={{
                         marginLeft: "10px",

@@ -11,7 +11,9 @@ import { useParams } from "react-router-dom";
 const InvoiceItem = () => {
   const { invoiceNumber: invoiceId } = useParams();
   const dispatch = useDispatch();
-  const { productItems, currency } = useSelector((state) => state.invoiceList[invoiceId - 1]);
+  const { productItems, currency } = useSelector(
+    (state) => state.invoiceList[invoiceId - 1]
+  );
   return (
     <div>
       <Table>
@@ -40,7 +42,7 @@ const InvoiceItem = () => {
       <Button
         className="fw-bold"
         onClick={() => {
-          dispatch(addItem({invoiceId: invoiceId - 1}));
+          dispatch(addItem({ invoiceId: invoiceId - 1 }));
         }}
       >
         Add Item

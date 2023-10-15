@@ -9,7 +9,8 @@ body,
 html,
 #root,
 .App {
-  min-height: 100vh
+  min-height: 100vh;
+  padding: 10px 0;
 }
 .btn {
   font-size: 0.9rem;

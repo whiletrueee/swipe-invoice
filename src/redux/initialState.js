@@ -1,5 +1,8 @@
+import { generateInvoiceId } from "../utility";
+
 export const listOfInvoices = [
   {
+    invoiceHex: generateInvoiceId(),
     productItems: [],
     isOpen: false,
     currency: "$",

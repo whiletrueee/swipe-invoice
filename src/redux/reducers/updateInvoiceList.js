@@ -1,12 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { listOfInvoices } from "../initialState";
+import { generateInvoiceId } from "../../utility";
 
 const invoiceListSlice = createSlice({
   name: "invoiceList",
   initialState: listOfInvoices,
   reducers: {
+    deleteInvoice: (state, action) => {
+      state.splice(action.payload.index, 1);
+    },
     addInvoice: (state) => {
       state.push({
+        invoiceHex: generateInvoiceId(),
         productItems: [],
         isOpen: false,
         currency: "$",
@@ -106,5 +111,6 @@ export const {
   deleteItem,
   editItem,
   calculateTotal,
+  deleteInvoice,
 } = invoiceListSlice.actions;
 export default invoiceListSlice.reducer;
