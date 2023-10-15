@@ -13,7 +13,6 @@ import { calculateTotal, updateField } from "../redux/reducers/updateInvoice";
 const InvoiceForm = () => {
   const {
     currency,
-    currentDate,
     invoiceNumber,
     dateOfIssue,
     billTo,
