@@ -5,13 +5,11 @@ import Container from "react-bootstrap/Container";
 import InvoiceForm from "./components/InvoiceForm";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import ViewInvoiceList from "./components/ViewInvoiceList";
 
 const App = () => {
   const { invoiceNumber } = useParams();
   const { invoiceList } = useSelector((state) => state);
-  const dispatch = useDispatch();
   if (
     isNaN(invoiceNumber) ||
     invoiceNumber < 1 ||

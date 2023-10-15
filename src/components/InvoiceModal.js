@@ -10,7 +10,6 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { useSelector, useDispatch } from "react-redux";
 import { updateField } from "../redux/reducers/updateInvoiceList";
-import { useParams } from "react-router-dom";
 
 function GenerateInvoice() {
   html2canvas(document.querySelector("#invoiceCapture")).then((canvas) => {
