@@ -4,6 +4,10 @@
 
 This Invoice Generator App is a web application built using React, React-Redux, and React-Bootstrap. It provides a simple yet powerful interface for managing and handling invoices. Users can effortlessly view, edit, and delete invoices, making it a convenient tool for organizing and tracking financial transactions.
 
+### Live Demo
+
+https://guileless-medovik-d35c4b.netlify.app/
+
 ## Technologies Used
 
 - **React**: The core library for building the user interface.
@@ -31,10 +35,6 @@ This Invoice Generator App is a web application built using React, React-Redux, 
 - View detailed information for each invoice, ensuring transparency and clarity.
 
 Download Invoice as PDFs to your device. Uses [jspdf-react](https://www.npmjs.com/package/jspdf-react) to capture the data from the modal and covert it from canvas -> pdf.
-
-### Live Demo
-
-https://guileless-medovik-d35c4b.netlify.app/
 
 ### Screenshots
 
