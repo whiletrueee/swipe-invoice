@@ -25,7 +25,6 @@ This Invoice Generator App is a web application built using React, React-Redux, 
 ### 3. Delete Invoices
 
 - Effortlessly remove invoices that are no longer needed.
-- A confirmation prompt ensures accidental deletions are avoided.
 
 ### 4. Invoice Details
 
